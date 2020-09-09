@@ -136,33 +136,48 @@ class DoublyLinkedList:
     Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List.
     """
+
     def move_to_end(self, node):
-        prev = None
-        current = self.head
-        if self.head == node:
-            self.head = current.next
-            current.prev = self.tail
-            current.next = None
-            self.tail = current
+        if node is self.tail:
+            return
+        
+        value = node.value
 
+        if node is self.head:
+            self.remove_from_head()
+            self.add_to_tail(value)
+        else:
+            if node.prev:
+                node.prev.next = node.next
+            if node.next:
+                node.next.prev = node.prev
+            self.length -= 1
+            self.add_to_tail(value)
+    #     prev = None
+    #     current = self.head
+    #     if self.head == node:
+    #         self.tail == node
 
-        while current:
-            if current == node:
-                if current.next:
-                    current.next.prev = prev
-                    prev.next = current.next
-                current.prev = self.tail
-                current.next = None
-                self.tail = current
-                # new_tail = current
-                # old_tail = self.tail
-                # new_tail.prev = old_tail
-                # new_tail.next = None
-                # self.tail = new_tail
-                # current.next = None
-                # current.prev = old_tail
-            prev = current
-            current = current.next
+    #     while current:
+    #         if current == node:
+    #             if current.next and prev:
+    #                 current.next.prev = prev
+    #                 prev.next = current.next
+    #             elif current.next is None and prev is None:
+    #                 current.next = None
+    #             current.prev = self.tail
+    #             current.next = None
+    #             self.tail = current
+    #             # new_tail = current
+    #             # old_tail = self.tail
+    #             # new_tail.prev = old_tail
+    #             # new_tail.next = None
+    #             # self.tail = new_tail
+    #             # current.next = None
+    #             # current.prev = old_tail
+    #         else:
+    #             prev = current
+    #             current = current.next
 
     """
     Deletes the input node from the List, preserving the 
