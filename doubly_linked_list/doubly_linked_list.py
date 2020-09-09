@@ -139,12 +139,17 @@ class DoublyLinkedList:
     def move_to_end(self, node):
         prev = None
         current = self.head
+        if self.head == node:
+            self.head = current.next
+            current.prev = self.tail
+            current.next = None
+            self.tail = current
+
 
         while current:
             if current == node:
                 if current.next:
                     current.next.prev = prev
-                if current.prev:
                     prev.next = current.next
                 current.prev = self.tail
                 current.next = None
@@ -169,24 +174,34 @@ class DoublyLinkedList:
         if self.head.next is None:
             if self.head == node:
                 self.head = None
+                self.tail = None
+                self.length -= 1
             return
         if self.head == node:
             self.head = self.head.next
             self.head.prev = None
+            self.length -= 1
             return
         # prev = None
         current = self.head
         while current is not None:
             if current == node:
-                break
+                if current.next:
+                    current.next.prev = current.prev
+                if current.prev:
+                    current.prev.next = current.next
+                current.next = None
+                current.prev = None
+                self.length -= 1
             current = current.next
-        if current.next is not None:
-            current.next.prev = current.prev
-        if current.prev is not None:
-            current.prev.next = current.next
-        else:
-            if current == node:
-                current.prev.next = None
+        
+        # if current.next is not None:
+        #     current.next.prev = current.prev
+        # if current.prev is not None:
+        #     current.prev.next = current.next
+        # else:
+        #     if current == node:
+        #         current.prev.next = None
 
         # while current:
         #     if current is node:
