@@ -28,17 +28,16 @@ class DoublyLinkedList:
     """
     def add_to_head(self, value):
         new_node = ListNode(value, None)
+        self.length += 1
 
         if not self.head:
             self.head = new_node
             self.tail = new_node
-            self.length += 1
 
         else:
             self.head.prev = new_node
             new_node.next = self.head
-            self.head = new_node 
-            self.length += 1       
+            self.head = new_node     
     """
     Removes the List's current head node, making the
     current head's next node the new head of the List.
@@ -72,6 +71,7 @@ class DoublyLinkedList:
     """
     def add_to_tail(self, value):
         new_node = ListNode(value, None)
+        self.length += 1
 
         if not self.head:
             self.head = new_node
@@ -80,7 +80,6 @@ class DoublyLinkedList:
             self.tail.next = new_node
             new_node.prev = self.tail
             self.tail = new_node
-        self.length += 1
         
             
             
@@ -114,7 +113,8 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        # node = ListNode(node)
+        if node is self.head:
+            return
         prev = None
         current = self.head         
 
@@ -126,9 +126,6 @@ class DoublyLinkedList:
                 current.next = self.head
                 current.prev = None
                 self.head = current
-                # current.prev = None
-                # old_head.prev = current
-                # current.next = old_head
             prev = current
             current = current.next
         
@@ -153,31 +150,6 @@ class DoublyLinkedList:
                 node.next.prev = node.prev
             self.length -= 1
             self.add_to_tail(value)
-    #     prev = None
-    #     current = self.head
-    #     if self.head == node:
-    #         self.tail == node
-
-    #     while current:
-    #         if current == node:
-    #             if current.next and prev:
-    #                 current.next.prev = prev
-    #                 prev.next = current.next
-    #             elif current.next is None and prev is None:
-    #                 current.next = None
-    #             current.prev = self.tail
-    #             current.next = None
-    #             self.tail = current
-    #             # new_tail = current
-    #             # old_tail = self.tail
-    #             # new_tail.prev = old_tail
-    #             # new_tail.next = None
-    #             # self.tail = new_tail
-    #             # current.next = None
-    #             # current.prev = old_tail
-    #         else:
-    #             prev = current
-    #             current = current.next
 
     """
     Deletes the input node from the List, preserving the 
